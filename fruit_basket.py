@@ -23,45 +23,27 @@ with open(filename) as csvfile:
 # print total number of fruit in basket
 print("There are " + str(len(rows)) + " fruits total in this basket.")
 
-# get all the fruits & print
-fruits = []
+# map types of fruit to fruit counts
+fruit_count = {}
 for each_row in rows:
-    fruits.append(each_row[0])
+    if each_row[0] not in fruit_count:
+        fruit_count[each_row[0]] = 1
+    else:
+        fruit_count[each_row[0]] = fruit_count[each_row[0]] + 1
 
-# get types of fruit & print
-uniquefruits = set(fruits)
-print("There are " + str(len(uniquefruits)) + " types of fruit: " + ", ".join(uniquefruits) + ".")
+# print number of unique fruits
+print("There are " + str(len(fruit_count)) + " unique fruits in the basket.")
 
-# empty fruit lists
-# TODO: extract fruit names from data
-apples = []
-oranges = []
-grapefruit = []
-pineapple = []
-watermelon = []
+# sort fruits in descending order & print
+print("There are ", end='')
+[print(str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)]
+print("in the basket.")
 
-# get individual lists of fruits
-index = 0
+# map types of fruit to characteristics & print
+fruit_style = {}
+for each_row in rows:
+    if each_row[0] not in fruit_style:
+        fruit_style[each_row[0]] = each_row[2] + ", " + each_row[3]
 
-for row in fruits:
-    if fruits[index] == 'apple':
-        apples.append(fruits[index])
-    elif fruits[index] == 'orange':
-        oranges.append(fruits[index])
-    elif fruits[index] == 'grapefruit':
-        grapefruit.append(fruits[index])
-    elif fruits[index] == 'pineapple':
-        pineapple.append(fruits[index])
-    elif fruits[index] == 'watermelon':
-        watermelon.append(fruits[index])
-    index += 1
-
-# get number of fruit by type & print
-# TODO: order by descending
-numapple = str(len(apples))
-numorange = str(len(oranges))
-numgrapefruit = str(len(grapefruit))
-numpineapple = str(len(pineapple))
-numwatermelon = str(len(watermelon))
-
-print("In this basket there are " + numapple + " apples, " + numorange + " oranges, " + numgrapefruit + " grapefruit, " + numpineapple + " pineapple, " + numwatermelon + " watermelon.")
+print("These are the characteristics of fruit in the basket:")
+[print(key + ": " + value) for (key, value) in fruit_style.items()]
