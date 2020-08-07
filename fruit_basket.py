@@ -1,4 +1,5 @@
 import csv
+import tkinter as tk
 
 # read csv file
 def read_file(filename):
@@ -67,6 +68,14 @@ def check_type_age(old_fruit):
             type_ages[3] += 1
     return type_ages
 
+def create_frame():
+    root = tk.Tk()
+
+    canvas1 = tk.Canvas(root, width = 300, height = 300, bg = 'lightsteelblue2', relief = 'raised')
+    canvas1.pack()
+
+    root.mainloop()
+
 def main():
     rows = read_file('basket.csv')
     fruit_count = map_fruit_types(rows)
@@ -74,26 +83,30 @@ def main():
     old_fruit = check_age(rows)
     type_ages = check_type_age(old_fruit)
 
-    # print total fruit
-    print(count_fruit(rows))
+    create_frame()
 
-    # print total unique fruit
-    print(count_fruit_types(fruit_count))
+    # # print total fruit
+    # print(count_fruit(rows))
 
-    # sort fruits in descending order & print
-    print("There are ", end='')
-    [print(str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)]
-    print("in the basket.")
+    # # print total unique fruit
+    # print(count_fruit_types(fruit_count))
 
-    # print fruit characteristics
-    print("These are the characteristics of fruit in the basket:")
-    [print(key + ": " + value) for (key, value) in fruit_style.items()]
+    # # sort fruits in descending order & print
+    # print("There are ", end='')
+    # [print(str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)]
+    # print("in the basket.")
 
-    # print fruit age
-    print("There are " + str(len(old_fruit)) + " fruits over 3 days old in the basket: ")
+    # # print fruit characteristics
+    # print("These are the characteristics of fruit in the basket:")
+    # [print(key + ": " + value) for (key, value) in fruit_style.items()]
 
-    # print types of old fruit
-    print(str(type_ages[0]) + " apples, " + str(type_ages[1]) + " oranges, " + str(type_ages[2]) + " pineapples, " + str(type_ages[3]) + " watermelons.")
+    # # print fruit age
+    # print("There are " + str(len(old_fruit)) + " fruits over 3 days old in the basket: ")
+
+    # # print types of old fruit
+    # print(str(type_ages[0]) + " apples, " + str(type_ages[1]) + " oranges, " + str(type_ages[2]) + " pineapples, " + str(type_ages[3]) + " watermelons.")
+
+    
 
 if __name__ == "__main__":
     main()
