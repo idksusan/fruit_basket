@@ -68,11 +68,15 @@ def check_type_age(old_fruit):
             type_ages[3] += 1
     return type_ages
 
-def create_frame():
+def create_frame(rows):
     root = tk.Tk()
+    root.title("Fruit Basket")
 
-    canvas1 = tk.Canvas(root, width = 300, height = 300, bg = 'lightsteelblue2', relief = 'raised')
+    canvas1 = tk.Canvas(root, width = 600, height = 400, relief = 'raised')
     canvas1.pack()
+
+    l1 = Label(root, text = "Fruit Data")
+    l1.grid(row = 0, column = 3, sticky = W, pady = 2)
 
     root.mainloop()
 
@@ -83,7 +87,7 @@ def main():
     old_fruit = check_age(rows)
     type_ages = check_type_age(old_fruit)
 
-    create_frame()
+    create_frame(rows)
 
     # # print total fruit
     # print(count_fruit(rows))
