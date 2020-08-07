@@ -36,8 +36,11 @@ def count_fruit_types(fruit_count):
     unique_fruit_count = "There are " + str(len(fruit_count)) + " unique fruits in the basket."
     return unique_fruit_count
 
+# sort fruit count in descending order
 def sort_fruit(fruit_count):
-    sorted_fruit = (str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)
+    sorted_fruit = ""
+    for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse=True):
+        sorted_fruit += str(value) + " " + key + "s, "
     sort_string = "There are " + sorted_fruit + "in the basket."
     return sort_string
 
@@ -49,6 +52,13 @@ def map_fruit_style(rows):
             fruit_style[each_row[0]] = each_row[2] + ", " + each_row[3]
     return fruit_style
 
+# write fruit characteristics
+def write_style(fruit_style):
+    fruit_styles = ""
+    for (key, value) in fruit_style.items():
+        fruit_styles += key + "| " + value + "\n"
+    return fruit_styles
+
 # check fruit age
 def check_age(rows):
     old_fruit = []
@@ -56,7 +66,6 @@ def check_age(rows):
         if each_row[1] > str(3):
             old_fruit.append(each_row)
     return old_fruit
-
 
 # count how many fruits of each type over
 def check_type_age(old_fruit):
@@ -78,29 +87,29 @@ def main():
     fruit_style = map_fruit_style(rows)
     old_fruit = check_age(rows)
     type_ages = check_type_age(old_fruit)
+    sorted_fruit = sort_fruit(fruit_count)
+    fruit_styles = write_style(fruit_style)
 
     f = open("fruit_metrics.txt", "w+")
 
     # print total fruit
-    f.write(count_fruit(rows))
+    f.write(count_fruit(rows) + "\n")
 
     # print total unique fruit
-    f.write(count_fruit_types(fruit_count))
+    f.write(count_fruit_types(fruit_count) + "\n")
 
     # sort fruits in descending order & print
-    print("There are ", end='')
-    [print(str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)]
-    print("in the basket.")
+    f.write(sorted_fruit + "\n")
 
     # print fruit characteristics
-    print("These are the characteristics of fruit in the basket:")
-    [print(key + ": " + value) for (key, value) in fruit_style.items()]
+    f.write("These are the characteristics of fruit in the basket:" + "\n")
+    f.write(fruit_styles)
 
     # print fruit age
-    print("There are " + str(len(old_fruit)) + " fruits over 3 days old in the basket: ")
+    f.write("There are " + str(len(old_fruit)) + " fruits over 3 days old in the basket: ")
 
     # print types of old fruit
-    print(str(type_ages[0]) + " apples, " + str(type_ages[1]) + " oranges, " + str(type_ages[2]) + " pineapples, " + str(type_ages[3]) + " watermelons.")
+    f.write(str(type_ages[0]) + " apples, " + str(type_ages[1]) + " oranges, " + str(type_ages[2]) + " pineapples, " + str(type_ages[3]) + " watermelons.")
 
     f.close()
 
