@@ -1,5 +1,4 @@
 import csv
-import tkinter as tk
 
 # read csv file
 def read_file(filename):
@@ -37,6 +36,11 @@ def count_fruit_types(fruit_count):
     unique_fruit_count = "There are " + str(len(fruit_count)) + " unique fruits in the basket."
     return unique_fruit_count
 
+def sort_fruit(fruit_count):
+    sorted_fruit = (str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)
+    sort_string = "There are " + sorted_fruit + "in the basket."
+    return sort_string
+
 # map types of fruit to characteristics
 def map_fruit_style(rows):
     fruit_style = {}
@@ -68,18 +72,6 @@ def check_type_age(old_fruit):
             type_ages[3] += 1
     return type_ages
 
-def create_frame(rows):
-    root = tk.Tk()
-    root.title("Fruit Basket")
-
-    canvas1 = tk.Canvas(root, width = 600, height = 400, relief = 'raised')
-    canvas1.pack()
-
-    l1 = Label(root, text = "Fruit Data")
-    l1.grid(row = 0, column = 3, sticky = W, pady = 2)
-
-    root.mainloop()
-
 def main():
     rows = read_file('basket.csv')
     fruit_count = map_fruit_types(rows)
@@ -87,28 +79,30 @@ def main():
     old_fruit = check_age(rows)
     type_ages = check_type_age(old_fruit)
 
-    create_frame(rows)
+    f = open("fruit_metrics.txt", "w+")
 
-    # # print total fruit
-    # print(count_fruit(rows))
+    # print total fruit
+    f.write(count_fruit(rows))
 
-    # # print total unique fruit
-    # print(count_fruit_types(fruit_count))
+    # print total unique fruit
+    f.write(count_fruit_types(fruit_count))
 
-    # # sort fruits in descending order & print
-    # print("There are ", end='')
-    # [print(str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)]
-    # print("in the basket.")
+    # sort fruits in descending order & print
+    print("There are ", end='')
+    [print(str(value) + " " + key + "s, ", end='') for (key, value) in sorted(fruit_count.items(), key=lambda x: x[1], reverse = True)]
+    print("in the basket.")
 
-    # # print fruit characteristics
-    # print("These are the characteristics of fruit in the basket:")
-    # [print(key + ": " + value) for (key, value) in fruit_style.items()]
+    # print fruit characteristics
+    print("These are the characteristics of fruit in the basket:")
+    [print(key + ": " + value) for (key, value) in fruit_style.items()]
 
-    # # print fruit age
-    # print("There are " + str(len(old_fruit)) + " fruits over 3 days old in the basket: ")
+    # print fruit age
+    print("There are " + str(len(old_fruit)) + " fruits over 3 days old in the basket: ")
 
-    # # print types of old fruit
-    # print(str(type_ages[0]) + " apples, " + str(type_ages[1]) + " oranges, " + str(type_ages[2]) + " pineapples, " + str(type_ages[3]) + " watermelons.")
+    # print types of old fruit
+    print(str(type_ages[0]) + " apples, " + str(type_ages[1]) + " oranges, " + str(type_ages[2]) + " pineapples, " + str(type_ages[3]) + " watermelons.")
+
+    f.close()
 
     
 
