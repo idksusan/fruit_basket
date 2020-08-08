@@ -67,28 +67,25 @@ def check_age(rows):
             old_fruit.append(each_row)
     return old_fruit
 
-# count how many fruits of each type over
+# map old fruit to their counts
 def check_type_age(old_fruit):
-    type_ages = [0, 0, 0, 0]
+    type_ages = {}
     for each_row in old_fruit:
-        if each_row[0] == 'apple':
-            type_ages[0] += 1
-        elif each_row[0] == 'orange':
-            type_ages[1] += 1
-        elif each_row[0] == 'pineapple':
-            type_ages[2] += 1
-        elif each_row[0] == 'watermelon':
-            type_ages[3] += 1
+        if each_row[0] not in type_ages:
+            type_ages[each_row[0]] = 1
+        else:
+            type_ages[each_row[0]] = type_ages[each_row[0]] + 1
+
     return type_ages
+
+# write fruit ages
+def write_ages(type_ages):
+    fruit_ages = ""
+    fruit_ages += ", ".join("{1} {0}".format(key, val) for key, val in type_ages.items())
+    return fruit_ages
 
 def main():
     rows = read_file('basket.csv')
-    fruit_count = map_fruit_types(rows)
-    fruit_style = map_fruit_style(rows)
-    old_fruit = check_age(rows)
-    type_ages = check_type_age(old_fruit)
-    sorted_fruit = sort_fruit(fruit_count)
-    fruit_styles = write_style(fruit_style)
 
     f = open("fruit_metrics.txt", "w+")
 
@@ -96,24 +93,22 @@ def main():
     f.write(count_fruit(rows) + "\n")
 
     # print total unique fruit
-    f.write(count_fruit_types(fruit_count) + "\n")
+    f.write(count_fruit_types(map_fruit_types(rows)) + "\n")
 
     # sort fruits in descending order & print
-    f.write(sorted_fruit + "\n")
+    f.write(sort_fruit(map_fruit_types(rows)) + "\n")
 
     # print fruit characteristics
     f.write("These are the characteristics of fruit in the basket:" + "\n")
-    f.write(fruit_styles)
+    f.write(write_style(map_fruit_style(rows)))
 
     # print fruit age
-    f.write("There are " + str(len(old_fruit)) + " fruits over 3 days old in the basket: ")
+    f.write("There are " + str(len(check_age(rows))) + " fruits over 3 days old in the basket: ")
 
     # print types of old fruit
-    f.write(str(type_ages[0]) + " apples, " + str(type_ages[1]) + " oranges, " + str(type_ages[2]) + " pineapples, " + str(type_ages[3]) + " watermelons.")
+    f.write(write_ages(check_type_age(check_age(rows))))  
 
     f.close()
-
-    
 
 if __name__ == "__main__":
     main()
