@@ -52,15 +52,6 @@ def map_fruit_style(rows):
             fruit_style[each_row[2] + ", " + each_row[3]] = each_row[0]
     return fruit_style
 
-def count_fruit_styles(fruit_style):
-    count_styles = {}
-    for each_row in fruit_style:
-        if each_row[0] not in count_styles:
-            each_row[0] = 1
-        else:
-            each_row[0] = fruit_style[each_row[0]] + 1
-    return count_styles
-
 # write fruit characteristics
 def write_style(fruit_style):
     fruit_styles = ""
@@ -119,7 +110,7 @@ def main():
 
     f.close()
 
-    print(count_fruit_styles(map_fruit_style(rows)))
+    print(map_fruit_style(rows))
 
 if __name__ == "__main__":
     main()
