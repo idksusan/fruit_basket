@@ -48,15 +48,24 @@ def sort_fruit(fruit_count):
 def map_fruit_style(rows):
     fruit_style = {}
     for each_row in rows:
-        if each_row[0] not in fruit_style:
-            fruit_style[each_row[0]] = each_row[2] + ", " + each_row[3]
+        if (each_row[2] and each_row[3]) or (each_row[3] and each_row[2]) not in fruit_style:
+            fruit_style[each_row[2] + ", " + each_row[3]] = each_row[0]
     return fruit_style
+
+def count_fruit_styles(fruit_style):
+    count_styles = {}
+    for each_row in fruit_style:
+        if each_row[0] not in count_styles:
+            each_row[0] = 1
+        else:
+            each_row[0] = fruit_style[each_row[0]] + 1
+    return count_styles
 
 # write fruit characteristics
 def write_style(fruit_style):
     fruit_styles = ""
     for (key, value) in fruit_style.items():
-        fruit_styles += key + "| " + value + "\n"
+        fruit_styles += str(key) + ": " + str(value) + "\n"
     return fruit_styles
 
 # check fruit age
@@ -109,6 +118,8 @@ def main():
     f.write(write_ages(check_type_age(check_age(rows))))  
 
     f.close()
+
+    print(count_fruit_styles(map_fruit_style(rows)))
 
 if __name__ == "__main__":
     main()
