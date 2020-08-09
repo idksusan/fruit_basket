@@ -1,6 +1,7 @@
 import csv
 from tkinter import *
 import tkinter as tk
+import sys
 
 # read csv file
 def read_file(filename):
@@ -120,11 +121,11 @@ def on_click(rows):
     f.close()
 
 def main():
-    rows = read_file('basket.csv')
+    rows = read_file(sys.argv[1])
 
     # create GUI window
     root = tk.Tk()
-    b = tk.Button(root, text = "GENERATE METRICS", width = 20, command = on_click(rows))
+    b = tk.Button(root, text = "GENERATE METRICS", width = 20, command = lambda: on_click(rows))
     root.title("Fruit Basket")
     r = make_table(root, rows)
     b.grid(row = 27, column = 1, pady = 20)
