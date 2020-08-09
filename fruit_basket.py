@@ -1,4 +1,6 @@
 import csv
+from tkinter import *
+import tkinter as tk
 
 # read csv file
 def read_file(filename):
@@ -84,9 +86,16 @@ def write_ages(type_ages):
     fruit_ages += ", ".join("{1} {0}".format(key, val) for key, val in type_ages.items())
     return fruit_ages
 
-def main():
-    rows = read_file('basket.csv')
+# create table for graphic representation
+def make_table(root, rows):
+    for i in range(len(rows)):
+        for j in range((len(rows[0]))):
+            e = Entry(root, width=20, font = ('Arial', 10))
+            e.grid(row = i, column = j)
+            e.insert(END, rows[i][j])
 
+# write metrics to file on click
+def on_click(rows):
     f = open("fruit_metrics.txt", "w+")
 
     # print total fruit
@@ -110,7 +119,16 @@ def main():
 
     f.close()
 
-    print(map_fruit_style(rows))
+def main():
+    rows = read_file('basket.csv')
+
+    # create GUI window
+    root = tk.Tk()
+    b = tk.Button(root, text = "GENERATE METRICS", width = 20, command = on_click(rows))
+    root.title("Fruit Basket")
+    r = make_table(root, rows)
+    b.grid(row = 27, column = 1, pady = 20)
+    root.mainloop()
 
 if __name__ == "__main__":
     main()
