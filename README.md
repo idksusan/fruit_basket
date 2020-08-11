@@ -18,4 +18,4 @@ To run the application:
 
 I very much appreciated the challenge of this exercise. Being a stranger to Python, I learned a lot about the language and how scripting languages differ from strict programming languages. The flexibility of Python was both enjoyable and a challenge, as I am used to the explicit declarations of Java, but I think I have gained an appreciation for simplicity.
 
-In structuring the application code, I did my best to adhere to the Single Responsibility Principle and made each function to have at most one task. If given more time, I would have liked to add testing and more sophistication in the GUI. 
+In structuring the application code, I did my best to adhere to the Single Responsibility Principle and made each function to have at most one task. If given more time, I would have liked to add testing and exception handling, as well as a more sophisticated GUI. 
