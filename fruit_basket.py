@@ -11,7 +11,7 @@ def read_file(filename):
     headers = []
     rows = []
     with open(filename) as csvfile:
-        basketreader = csv.reader(csvfile)
+        basketreader = csv.reader(csvfile, skipinitialspace=True)
 
         # save header names
         headers = next(basketreader)
