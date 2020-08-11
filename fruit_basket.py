@@ -123,7 +123,12 @@ def on_click(rows):
     f.close()
 
 def main():
-    rows = read_file(sys.argv[1])
+    rows = []
+    try:
+        rows = read_file(sys.argv[1])
+    except:
+        print("An error ocurred, please make sure to use a csv file.")
+    
 
     # create GUI window
     root = tk.Tk()

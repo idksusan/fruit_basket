@@ -1,0 +1,5 @@
+There are 0 fruits total in this basket.
+There are 0 unique fruits in the basket.
+There are in the basket.
+These are the characteristics of fruit in the basket:
+There are 0 fruits over 3 days old in the basket: 
